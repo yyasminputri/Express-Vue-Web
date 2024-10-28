@@ -33,8 +33,14 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
   console.log("User Login:", { username, password });
-  res.send("Login berhasil! (Ini adalah halaman sementara)");
+  res.redirect(`/dashboard?username=${username}`);
 });
+
+app.get("/dashboard", (req, res) => {
+  const username = req.query.username;
+  res.render("dashboard", { title: "Dashboard", username });
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
