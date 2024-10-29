@@ -1,13 +1,20 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import store from "./store";
-import router from "./router";
-import "./assets/css/nucleo-icons.css";
-import "./assets/css/nucleo-svg.css";
-import ArgonDashboard from "./argon-dashboard";
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
-const appInstance = createApp(App);
-appInstance.use(store);
-appInstance.use(router);
-appInstance.use(ArgonDashboard);
-appInstance.mount("#app");
+import App from './App.vue'
+import router from './router'
+
+import CoreuiVue from '@coreui/vue'
+import CIcon from '@coreui/icons-vue'
+import { iconsSet as icons } from '@/assets/icons'
+import DocsExample from '@/components/DocsExample'
+
+const app = createApp(App)
+app.use(createPinia())
+app.use(router)
+app.use(CoreuiVue)
+app.provide('icons', icons)
+app.component('CIcon', CIcon)
+app.component('DocsExample', DocsExample)
+
+app.mount('#app')
