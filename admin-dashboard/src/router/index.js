@@ -1,6 +1,11 @@
 import { h, resolveComponent } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
+import UserTable from '@/components/UserTable.vue';
+import MovieTable from '@/components/MovieTable.vue';
+import TheaterTable from '@/components/TheaterTable.vue';
+import BookingTable from '@/components/BookingTable.vue';
+import PaymentTable from '@/components/PaymentTable.vue';
 import DefaultLayout from '@/layouts/DefaultLayout'
 
 const routes = [
@@ -20,6 +25,31 @@ const routes = [
           import(
             /* webpackChunkName: "dashboard" */ '@/views/dashboard/Dashboard.vue'
           ),
+      },
+      {
+        path: '/users', // URL untuk halaman User Table
+        name: 'Users',
+        component: UserTable, // Mengarahkan ke komponen UserTable
+      },
+      {
+        path: '/movies',
+        name: 'Movies',
+        component: MovieTable,
+      },
+      {
+        path: '/theaters',
+        name: 'Theaters',
+        component: TheaterTable,
+      },
+      {
+        path: '/bookings',
+        name: 'Bookings',
+        component: BookingTable,
+      },
+      {
+        path: '/payments',
+        name: 'Payments',
+        component: PaymentTable,
       },
       {
         path: '/theme',
