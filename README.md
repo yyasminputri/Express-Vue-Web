@@ -101,7 +101,7 @@ POKONYA CLONE BRANCH DAN CD KE PBKK-Express
        npm run dev
      ```
 
-INI BUILD
+INI BUILD ( kalo build gabisa edit vue yaaaa & tetep jalanin node index.js nya setelah ke build)
    
    di cd admin-dashboard
 
