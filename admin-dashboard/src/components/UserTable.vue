@@ -1,15 +1,14 @@
 <template>
-  <div>
+  <div class="container">
     <h1>User Table CRUD</h1>
-    <!-- Form untuk menambah atau mengedit user -->
-    <form @submit.prevent="saveUser">
-      <input type="text" v-model="user.username" placeholder="Username" required />
-      <input type="password" v-model="user.password" placeholder="Password" required />
-      <button type="submit">{{ isEdit ? "Update" : "Add" }} User</button>
+    
+    <form @submit.prevent="saveUser" class="form">
+      <input type="text" v-model="user.username" placeholder="Username" required class="input" />
+      <input type="password" v-model="user.password" placeholder="Password" required class="input" />
+      <button type="submit" class="button">{{ isEdit ? "Update" : "Add" }} User</button>
     </form>
 
-    <!-- Tabel untuk menampilkan user -->
-    <table>
+    <table class="user-table">
       <thead>
         <tr>
           <th>ID</th>
@@ -24,8 +23,8 @@
           <td>{{ user.username }}</td>
           <td>{{ user.password }}</td>
           <td>
-            <button @click="editUser(user)">Edit</button>
-            <button @click="deleteUser(user.id)">Delete</button>
+            <button @click="editUser(user)" class="button edit-button">Edit</button>
+            <button @click="deleteUser(user.id)" class="button delete-button">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -100,17 +99,83 @@ export default {
 </script>
 
 <style scoped>
-table {
-  width: 100%;
+.container {
+  max-width: 100%; /* Make container full width */
+  padding: 20px;
+}
+
+h1 {
+  text-align: left; /* Align title to the left */
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.user-table {
+  width: 100%; /* Make the table take the full width */
   border-collapse: collapse;
   margin-top: 20px;
 }
-th, td {
+
+.user-table th, .user-table td {
   border: 1px solid #ddd;
-  padding: 8px;
-}
-th {
-  background-color: #f2f2f2;
+  padding: 12px;
   text-align: left;
+}
+
+.user-table th {
+  background-color: #f9f9f9;
+  color: #333;
+  font-weight: bold;
+}
+
+.user-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.edit-button {
+  background-color: #ffc107;
+}
+
+.edit-button:hover {
+  background-color: #e0a800;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  margin-left: 5px;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
 }
 </style>

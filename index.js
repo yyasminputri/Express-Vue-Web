@@ -18,7 +18,8 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',        // Sesuaikan dengan user MySQL Anda, defaultnya adalah 'root' di Laragon
   password: '',        // Jika ada password, tambahkan di sini, defaultnya biasanya kosong di Laragon
-  database: 'film' // Ganti dengan nama database yang Anda gunakan
+  database: 'film', // Ganti dengan nama database yang Anda gunakan
+  port: 3308 
 });
 
 // Cek koneksi ke MySQL
