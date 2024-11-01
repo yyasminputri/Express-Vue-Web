@@ -91,6 +91,30 @@ app.get("/dashboard", (req, res) => {
   res.render("dashboard", { title: "Dashboard", username });
 });
 
+app.get("/now-playing", (req, res) => {
+  const sql = "SELECT title, genre, image_path FROM movies";
+  db.query(sql, (err, movies) => {
+    if (err) {
+      console.error("Error fetching movies from database:", err);
+      return res.status(500).send("Error occurred");
+    }
+    res.render("now-playing", { title: "Now Playing", movies });
+  });
+});
+
+app.get("/theaters", (req, res) => {
+  const sql = "SELECT name, location, image_path FROM theaters";
+  db.query(sql, (err, theaters) => {
+    if (err) {
+      console.error("Error fetching theaters from database:", err);
+      return res.status(500).send("Error occurred");
+    }
+    res.render("theaters", { title: "Our Theaters", theaters });
+  });
+});
+
+
+
 app.get("/api/users", (req, res) => {
   const sql = "SELECT * FROM users";
   db.query(sql, (err, results) => {
@@ -152,23 +176,22 @@ app.get("/api/movies", (req, res) => {
 });
 
 app.post("/api/movies", (req, res) => {
-  const { title, genre, release_year, rating, description } = req.body;
-  const sql = "INSERT INTO movies (title, genre, release_year, rating, description) VALUES (?, ?, ?, ?, ?)";
-  db.query(sql, [title, genre, release_year, rating, description], (err, result) => {
+  const { title, genre, release_year, rating, description, image_path } = req.body;
+  const sql = "INSERT INTO movies (title, genre, release_year, rating, description, image_path) VALUES (?, ?, ?, ?, ?, ?)";
+  db.query(sql, [title, genre, release_year, rating, description, image_path], (err, result) => {
     if (err) {
       console.error("Error adding movie:", err);
       return res.status(500).send("Error occurred");
     }
-    res.json({ id: result.insertId, title, genre, release_year, rating, description });
+    res.json({ id: result.insertId, title, genre, release_year, rating, description, image_path });
   });
 });
 
-
 app.put("/api/movies/:id", (req, res) => {
   const { id } = req.params;
-  const { title, genre, release_year, rating, description } = req.body;
-  const sql = "UPDATE movies SET title = ?, genre = ?, release_year = ?, rating = ?, description = ? WHERE id = ?";
-  db.query(sql, [title, genre, release_year, rating, description, id], (err) => {
+  const { title, genre, release_year, rating, description, image_path } = req.body;
+  const sql = "UPDATE movies SET title = ?, genre = ?, release_year = ?, rating = ?, description = ?, image_path = ? WHERE id = ?";
+  db.query(sql, [title, genre, release_year, rating, description, image_path, id], (err) => {
     if (err) {
       console.error("Error updating movie:", err);
       return res.status(500).send("Error occurred");
@@ -176,6 +199,7 @@ app.put("/api/movies/:id", (req, res) => {
     res.send("Movie updated successfully");
   });
 });
+
 
 
 app.delete("/api/movies/:id", (req, res) => {
@@ -202,23 +226,23 @@ app.get("/api/theaters", (req, res) => {
 });
 
 app.post("/api/theaters", (req, res) => {
-  const { name, location, capacity, description } = req.body;
-  const sql = "INSERT INTO theaters (name, location, capacity, description) VALUES (?, ?, ?, ?)";
-  db.query(sql, [name, location, capacity, description], (err, result) => {
+  const { name, location, capacity, description, image_path } = req.body;
+  const sql = "INSERT INTO theaters (name, location, capacity, description, image_path) VALUES (?, ?, ?, ?, ?)";
+  db.query(sql, [name, location, capacity, description, image_path], (err, result) => {
     if (err) {
       console.error("Error adding theater:", err);
       return res.status(500).send("Error occurred");
     }
-    res.json({ id: result.insertId, name, location, capacity, description });
+    res.json({ id: result.insertId, name, location, capacity, description, image_path });
   });
 });
 
 
 app.put("/api/theaters/:id", (req, res) => {
   const { id } = req.params;
-  const { name, location, capacity, description } = req.body;
-  const sql = "UPDATE theaters SET name = ?, location = ?, capacity = ?, description = ? WHERE id = ?";
-  db.query(sql, [name, location, capacity, description, id], (err) => {
+  const { name, location, capacity, description, image_path } = req.body;
+  const sql = "UPDATE theaters SET name = ?, location = ?, capacity = ?, description = ?, image_path = ? WHERE id = ?";
+  db.query(sql, [name, location, capacity, description, image_path, id], (err) => {
     if (err) {
       console.error("Error updating theater:", err);
       return res.status(500).send("Error occurred");
@@ -226,6 +250,7 @@ app.put("/api/theaters/:id", (req, res) => {
     res.send("Theater updated successfully");
   });
 });
+
 
 app.delete("/api/theaters/:id", (req, res) => {
   const { id } = req.params;

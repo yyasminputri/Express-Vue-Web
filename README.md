@@ -37,23 +37,30 @@ POKONYA CLONE BRANCH DAN CD KE PBKK-Express
         genre VARCHAR(100),
         release_year INT,
         rating DECIMAL(3, 1),
-        description TEXT
-        );
+        description TEXT,
+        image_path VARCHAR(255) -- Added image_path column here
+      );
 
-        INSERT INTO movies (title, genre, release_year, rating, description) VALUES
-        ('Inception', 'Sci-Fi', 2024, 8.8, 'A thief who steals corporate secrets through the use of dream-sharing technology.'),
-        ('The Matrix', 'Sci-Fi', 2024, 8.7, 'A computer hacker learns about the true nature of his reality.'),
-        ('Interstellar', 'Sci-Fi', 2024, 8.6, 'A team of explorers travel through a wormhole in space.'),
-        ('The Dark Knight', 'Action', 2024, 9.0, 'Batman raises the stakes in his war on crime.'),
-        ('The Shawshank Redemption', 'Drama', 2024, 9.3, 'Two imprisoned men bond over a number of years.');
+        INSERT INTO movies (title, genre, release_year, rating, description, image_path) VALUES
+        ('Inception', 'Sci-Fi', 2024, 8.8, 'A thief who steals corporate secrets through the use of dream-sharing technology.', './images/inception.jpeg'),
+        ('The Matrix', 'Sci-Fi', 2024, 8.7, 'A computer hacker learns about the true nature of his reality.', './images/matrix.jpg'),
+        ('Interstellar', 'Sci-Fi', 2024, 8.6, 'A team of explorers travel through a wormhole in space.', './images/interstellar.jpg'),
+        ('The Dark Knight', 'Action', 2024, 9.0, 'Batman raises the stakes in his war on crime.', './images/thedarkknight.jpg');
 
         CREATE TABLE theaters (
         id INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         location VARCHAR(255),
         capacity INT,
-        description TEXT
+        description TEXT,
+        image_path VARCHAR(255)
         );
+
+        INSERT INTO theaters (name, location, capacity, description, image_path) VALUES
+        ('Grand IMAX Cinema', 'Downtown', 300, 'Experience the ultimate in movie watching with crystal-clear IMAX screens and immersive sound.', './images/c1.jpg'),
+        ('Luxe VIP Cinema', 'Uptown', 200, 'Enjoy the ultimate luxury cinema experience with reclining seats, private lounges, and gourmet snacks.', './images/c2.jpg'),
+        ('Outdoor Drive-In', 'Countryside', 150, 'Enjoy a nostalgic movie night under the stars at our classic outdoor drive-in theater.', './images/c3.png'),
+        ('Cinema City', 'City Center', 400, 'A popular theater with a wide variety of movie selections and premium seating options.', './images/c4.jpg');
 
         CREATE TABLE bookings (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -75,6 +82,7 @@ POKONYA CLONE BRANCH DAN CD KE PBKK-Express
         FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE
         );
 
+      
      ```
 ### 5. **ADA 2 MODE, EDIT DAN BUILD**
    
