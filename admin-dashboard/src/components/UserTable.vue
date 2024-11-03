@@ -37,6 +37,7 @@ import axios from 'axios';
 
 export default {
   name: 'UserTable',
+  emits: ['user-updated'],
   data() {
     return {
       users: [],
@@ -56,6 +57,7 @@ export default {
       try {
         const response = await axios.get('http://localhost:3001/api/users');
         this.users = response.data;
+        this.$emit('user-updated')
       } catch (error) {
         console.error('Error fetching users:', error);
       }
@@ -72,6 +74,7 @@ export default {
         }
         this.resetForm();
         this.fetchUsers(); // Refresh list
+        this.$emit('user-updated')
       } catch (error) {
         console.error('Error saving user:', error);
       }
@@ -85,6 +88,7 @@ export default {
       try {
         await axios.delete(`http://localhost:3001/api/users/${id}`);
         this.fetchUsers();
+        this.$emit('user-updated')
       } catch (error) {
         console.error('Error deleting user:', error);
       }

@@ -18,8 +18,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',        // Sesuaikan dengan user MySQL Anda, defaultnya adalah 'root' di Laragon
   password: '',        // Jika ada password, tambahkan di sini, defaultnya biasanya kosong di Laragon
-  database: 'film', // Ganti dengan nama database yang Anda gunakan
-  port: 3308 
+  database: 'film' // Ganti dengan nama database yang Anda gunakan
 });
 
 // Cek koneksi ke MySQL
@@ -113,6 +112,136 @@ app.get("/theaters", (req, res) => {
     res.render("theaters", { title: "Our Theaters", theaters });
   });
 });
+
+
+app.get("/buy-ticket", (req, res) => {
+  const bookingsSql = `
+    SELECT bookings.id, bookings.name, movies.title AS movie_title, theaters.name AS theater_name, 
+           bookings.booking_date, bookings.seats
+    FROM bookings
+    JOIN movies ON bookings.movie_id = movies.id
+    JOIN theaters ON bookings.theater_id = theaters.id
+  `;
+  
+  db.query(bookingsSql, (err, bookings) => {
+    if (err) {
+      console.error("Error fetching bookings:", err);
+      return res.status(500).send("Error occurred");
+    }
+
+    // Fetch movies and theaters
+    db.query("SELECT id, title FROM movies", (err, movies) => {
+      if (err) {
+        console.error("Error fetching movies:", err);
+        return res.status(500).send("Error occurred");
+      }
+
+      db.query("SELECT id, name FROM theaters", (err, theaters) => {
+        if (err) {
+          console.error("Error fetching theaters:", err);
+          return res.status(500).send("Error occurred");
+        }
+
+        // Render the page with bookings, movies, and theaters
+        res.render("buy-ticket", { title: "Buy Ticket", bookings, movies, theaters, booking: {} });
+      });
+    });
+  });
+});
+
+
+
+
+app.post("/buy-ticket", (req, res) => {
+  const { id, name, movie_id, theater_id, booking_date, seats } = req.body;
+  if (id) {
+    // Update booking if ID is provided
+    const sql = "UPDATE bookings SET name = ?, movie_id = ?, theater_id = ?, booking_date = ?, seats = ? WHERE id = ?";
+    db.query(sql, [name, movie_id, theater_id, booking_date, seats, id], (err) => {
+      if (err) {
+        console.error("Error updating booking:", err);
+        return res.status(500).send("Error occurred");
+      }
+      res.redirect("/buy-ticket");
+    });
+  } else {
+    // Add new booking
+    const sql = "INSERT INTO bookings (name, movie_id, theater_id, booking_date, seats) VALUES (?, ?, ?, ?, ?)";
+    db.query(sql, [name, movie_id, theater_id, booking_date, seats], (err) => {
+      if (err) {
+        console.error("Error adding booking:", err);
+        return res.status(500).send("Error occurred");
+      }
+      res.redirect("/buy-ticket");
+    });
+  }
+});
+
+
+app.get("/buy-ticket/edit/:id", (req, res) => {
+  const { id } = req.params;
+  const bookingSql = `
+    SELECT bookings.*, movies.title AS movie_title, theaters.name AS theater_name
+    FROM bookings
+    JOIN movies ON bookings.movie_id = movies.id
+    JOIN theaters ON bookings.theater_id = theaters.id
+    WHERE bookings.id = ?
+  `;
+  
+  db.query(bookingSql, [id], (err, results) => {
+    if (err) {
+      console.error("Error fetching booking:", err);
+      return res.status(500).send("Error occurred");
+    }
+    const booking = results[0];
+
+    // Fetch movies and theaters to populate dropdowns
+    db.query("SELECT id, title FROM movies", (err, movies) => {
+      if (err) {
+        console.error("Error fetching movies:", err);
+        return res.status(500).send("Error occurred");
+      }
+
+      db.query("SELECT id, name FROM theaters", (err, theaters) => {
+        if (err) {
+          console.error("Error fetching theaters:", err);
+          return res.status(500).send("Error occurred");
+        }
+
+        // Fetch all bookings again for displaying in the table
+        db.query(`
+          SELECT bookings.id, bookings.name, movies.title AS movie_title, theaters.name AS theater_name, 
+                 bookings.booking_date, bookings.seats
+          FROM bookings
+          JOIN movies ON bookings.movie_id = movies.id
+          JOIN theaters ON bookings.theater_id = theaters.id
+        `, (err, bookings) => {
+          if (err) {
+            console.error("Error fetching bookings:", err);
+            return res.status(500).send("Error occurred");
+          }
+          res.render("buy-ticket", { title: "Edit Booking", booking, bookings, movies, theaters });
+        });
+      });
+    });
+  });
+});
+
+
+
+
+app.get("/buy-ticket/delete/:id", (req, res) => {
+  const { id } = req.params;
+  const sql = "DELETE FROM bookings WHERE id = ?";
+  db.query(sql, [id], (err) => {
+    if (err) {
+      console.error("Error deleting booking:", err);
+      return res.status(500).send("Error occurred");
+    }
+    res.redirect("/buy-ticket");
+  });
+});
+
 
 
 

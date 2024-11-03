@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - Powerpuff Cinema</title>
+  
+  <!-- GOOGLE FONTS: POPPINS -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <!-- OWL CAROUSEL -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+  
+  <!-- BOX ICONS -->
+  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+  
+  <!-- APP CSS -->
+  <link rel="stylesheet" href="/grid.css">
+  <link rel="stylesheet" href="/app.css">
+
+  <style>
+    /* Custom Form Styling */
+    .form-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(135deg, #ffffff, #eed5d5); /* Light gradient from white to light gray */
+    }
+    
+    .form-container h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+      font-family: 'Poppins', sans-serif;
+    }
+  
+    .form-container .form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+  
+    .form-container .input, 
+    .form-container select {
+      background: rgba(255, 255, 255, 0.9); /* Slightly transparent background for inputs */
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s;
+    }
+  
+    .form-container .input:focus, 
+    .form-container select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+  
+    .form-container .button {
+      padding: 12px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: background-color 0.3s ease;
+    }
+  
+    .form-container .button:hover {
+      background-color: #0056b3;
+    }
+  
+    /* Table Styling */
+    .booking-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-family: 'Poppins', sans-serif;
+    }
+  
+    .booking-table th, .booking-table td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+  
+    .booking-table th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      color: #333;
+    }
+  
+    .booking-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  
+    /* Action Buttons Styling */
+    .edit-button {
+      background-color: #ffc107;
+      color: #333;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .edit-button:hover {
+      background-color: #e0a800;
+    }
+  
+    .delete-button {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 5px;
+      transition: background-color 0.3s ease;
+    }
+  
+    .delete-button:hover {
+      background-color: #c82333;
+    }
+  </style>
+  
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="nav-wrapper">
+    <div class="container">
+      <div class="nav">
+        <a href="#" class="logo">
+        </a>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="/dashboard">Home</a></li>
+          <li><a href="/now-playing">Now Playing</a></li>
+          <li><a href="/theaters">Theatres</a></li>
+          <li><a href="/buy-ticket">Buy Tickets</a></li>
+          <li><a href="/admin">ADMIN</a></li>
+          <li>
+            <a href="#" class="btn btn-hover buy-ticket-btn">
+              <span>Log Out</span>
+            </a>
+          </li>
+        </ul>
+        <div class="hamburger-menu" id="hamburger-menu">
+          <div class="hamburger"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END NAVBAR -->
+
+  <!-- MAIN CONTENT -->
+  <div class="form-container">
+    <h1><%= title %></h1>
+    
+    <form action="/buy-ticket" method="POST" class="form">
+      <input type="hidden" name="id" value="<%= booking.id || '' %>">
+      <input type="text" name="name" placeholder="Name" required value="<%= booking.name || '' %>" class="input">
+      
+      <!-- Movie Dropdown -->
+      <select name="movie_id" required class="input">
+        <option value="">Select Movie</option>
+        <% movies.forEach(movie => { %>
+          <option value="<%= movie.id %>" <%= booking.movie_id === movie.id ? 'selected' : '' %>>
+            <%= movie.title %>
+          </option>
+        <% }) %>
+      </select>
+      
+      <!-- Theater Dropdown -->
+      <select name="theater_id" required class="input">
+        <option value="">Select Theater</option>
+        <% theaters.forEach(theater => { %>
+          <option value="<%= theater.id %>" <%= booking.theater_id === theater.id ? 'selected' : '' %>>
+            <%= theater.name %>
+          </option>
+        <% }) %>
+      </select>
+      
+      <input type="date" name="booking_date" required value="<%= booking.booking_date || '' %>" class="input">
+      <input type="number" name="seats" placeholder="Seats" required value="<%= booking.seats || '' %>" class="input">
+      <button type="submit" class="button"><%= booking.id ? 'Update' : 'Add' %> Booking</button>
+    </form>
+
+    <!-- Bookings Table -->
+    <table class="booking-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Movie</th>
+          <th>Theater</th>
+          <th>Booking Date</th>
+          <th>Seats</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <% bookings.forEach(booking => { %>
+          <tr>
+            <td><%= booking.name %></td>
+            <td><%= booking.movie_title %></td>
+            <td><%= booking.theater_name %></td>
+            <td><%= booking.booking_date %></td>
+            <td><%= booking.seats %></td>
+            
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <!-- END MAIN CONTENT -->
+
+  <!-- FOOTER -->
+  <footer class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-4 col-md-6 col-sm-12">
+          <div class="content">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut veniam ex quos hic id nobis beatae earum sapiente! Quod ipsa exercitationem officiis non error illum minima iusto et. Dolores, quibusdam?
+            </p>
+            <div class="social-list">
+              <a href="#" class="social-item">
+                <i class="bx bxl-facebook"></i>
+              </a>
+              <a href="#" class="social-item">
+                <i class="bx bxl-twitter"></i>
+              </a>
+              <a href="#" class="social-item">
+                <i class="bx bxl-instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-8 col-md-6 col-sm-12">
+          <div class="row">
+            <div class="col-3 col-md-6 col-sm-6">
+              <div class="content">
+                <p><b>Flix</b></p>
+                <ul class="footer-menu">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">My profile</a></li>
+                  <li><a href="#">Pricing plans</a></li>
+                  <li><a href="#">Contacts</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-3 col-md-6 col-sm-6">
+              <div class="content">
+                <p><b>Browse</b></p>
+                <ul class="footer-menu">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">My profile</a></li>
+                  <li><a href="#">Pricing plans</a></li>
+                  <li><a href="#">Contacts</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-3 col-md-6 col-sm-6">
+              <div class="content">
+                <p><b>Help</b></p>
+                <ul class="footer-menu">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">My profile</a></li>
+                  <li><a href="#">Pricing plans</a></li>
+                  <li><a href="#">Contacts</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-3 col-md-6 col-sm-6">
+              <div class="content">
+                <p><b>Download app</b></p>
+                <ul class="footer-menu">
+                  <li><a href="#"><img src="./images/google-play.png" alt=""></a></li>
+                  <li><a href="#"><img src="./images/app-store.png" alt=""></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- END FOOTER -->
+
+  <!-- COPYRIGHT SECTION -->
+  <div class="copyright">
+    Copyright 2024 <a href="https://www.youtube.com/channel/UCnNgtK4tGlWcceXVzoyTg8Q" target="_blank">
+      Furstin Nabhyla Yasmin</a>
+  </div>
+  <!-- END COPYRIGHT SECTION -->
+
+</body>
+</html>
