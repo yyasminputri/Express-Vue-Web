@@ -1,10 +1,5 @@
 <script setup>
-import { 
-  Film, 
-  Star, 
-  Users, 
-  Brain 
-} from 'lucide-vue-next'
+import { Film, Star, Users, Brain } from 'lucide-vue-next'
 import avatar1 from '@/assets/images/avatars/1.jpg'
 import avatar2 from '@/assets/images/avatars/2.jpg'
 import avatar3 from '@/assets/images/avatars/3.jpg'
@@ -13,6 +8,10 @@ import avatar5 from '@/assets/images/avatars/5.jpg'
 import MainChart from './MainChart.vue'
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
+import { Bar, Doughnut } from 'vue-chartjs'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js'
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement)
 
 // Styles
 const cardContainerStyle = {
@@ -205,6 +204,142 @@ const salesData = ref([
     ]
   }
 ])
+
+const chartData = ref({
+  labels: [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+    ],
+  datasets: [
+    {
+      backgroundColor: '#FF5673',
+      borderRadius: 5,
+      data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 12],
+    },
+  ],
+})
+  
+/*
+const chartData = ref({
+  labels: ['2020'],
+  datasets: [
+    {
+      label: 'Sales A',
+      data: [4, 6, 8, 10, 12, 14],
+      backgroundColor: '#FF5673',
+      borderRadius: 5,
+    },
+    {
+      label: 'Sales B',
+      data: [5, 7, 9, 11, 13, 15],
+      backgroundColor: '#4ADEDE',
+      borderRadius: 5,
+    },
+    {
+      label: 'Sales C',
+      data: [3, 5, 7, 9, 11, 13],
+      backgroundColor: '#FFC107', // Kuning
+      borderRadius: 5,
+    },
+    {
+      label: 'Sales D',
+      data: [6, 8, 10, 12, 14, 16],
+      backgroundColor: '#8E44AD', // Ungu
+      borderRadius: 5,
+    },
+    {
+      label: 'Sales E',
+      data: [2, 4, 6, 8, 10, 12],
+      backgroundColor: '#2ECC71', // Hijau
+      borderRadius: 5,
+    },
+    {
+      label: 'Sales F',
+      data: [7, 9, 11, 13, 15, 17],
+      backgroundColor: '#E67E22', // Orange
+      borderRadius: 5,
+    },
+    {
+      label: 'Sales G',
+      data: [4, 6, 8, 10, 12, 14],
+      backgroundColor: '#3498DB', // Biru
+      borderRadius: 5,
+    }
+  ]
+})
+*/
+
+// Options untuk Bar Chart (kode sebelumnya)
+const chartOptions = ref({
+  responsive: true,
+  scales: {
+    y: {
+      beginAtZero: true,
+      grid: {
+        color: 'rgba(0, 0, 0, 0.1)'
+      },
+      ticks: {
+        color: 'black'
+      }
+    },
+    x: {
+      grid: {
+        display: false
+      },
+      ticks: {
+        color: 'black'
+      }
+    }
+  },
+  plugins: {
+    legend: {
+      labels: {
+        color: 'black'
+      }
+    }
+  }
+})
+
+// Data untuk Donut Chart
+const donutData = ref({
+  labels: ['5 Star', '4 Star', '3 Star', '2 Star'],
+  datasets: [{
+    data: [40, 30, 20, 10],
+    backgroundColor: [
+    '#FF5673',  // Merah muda asli
+     '#FF7B8F',  // Lebih muda
+     '#FF9EAD',  // Jauh lebih muda
+     '#FFC1CB',  // Paling muda
+    ],
+    borderWidth: 0,
+  }]
+})
+
+// Options untuk Donut Chart
+const donutOptions = ref({
+  responsive: true,
+  cutout: '70%',
+  plugins: {
+    legend: {
+      display: false
+    }
+  },
+  elements: {
+    arc: {
+      borderWidth: 0
+    }
+  }
+})
 </script>
 
 <template>
@@ -274,6 +409,35 @@ const salesData = ref([
     </div>
   </div>
 
+  <div style="padding: 20px; padding-bottom: 60px;">
+    <!-- Main Content -->
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+      <!-- Charts Container -->
+      <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+        <!-- Bar Chart -->
+        <div style="flex: 2; background: white; padding: 20px; border-radius: 10px; height: 400px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+          <h1 style="color: #FF5673; margin-bottom: 10px; font-size: 24px; font-family: 'Poppins', sans-serif; text-align: center; font-weight: 600;">Ticket Sales</h1>
+          <Bar :data="chartData" :options="chartOptions" />
+        </div>
+
+        <!-- Donut Chart -->
+        <div style="flex: 1; background: white; padding: 20px; border-radius: 10px; height: 400px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2 style="color: #FF5673; margin-bottom: 10px; font-size: 24px; font-family: 'Poppins', sans-serif; text-align: center; font-weight: 600;">Rating Users</h2>
+        <Doughnut :data="donutData" :options="donutOptions" />
+          
+          <!-- Rating Legend -->
+          <div style="margin-top: 20px;">
+            <div v-for="(rate, index) in ratings" :key="index"
+                 style="display: flex; justify-content: space-between; margin-bottom: 10px; color: #333;">
+              <span>⭐ {{ rate.label }}</span>
+              <span>{{ rate.value }}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <!-- User Table -->
   <div>
     <CRow>
@@ -327,4 +491,5 @@ const salesData = ref([
       </CCol>
     </CRow>
   </div>
+
 </template>
