@@ -68,7 +68,7 @@ POKONYA CLONE BRANCH DAN CD KE PBKK-Express
         movie_id INT NOT NULL,
         theater_id INT NOT NULL,
         booking_date DATE NOT NULL,
-        seats INT NOT NULL,
+        seats VARCHAR(20) NOT NULL,
         FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
         FOREIGN KEY (theater_id) REFERENCES theaters(id) ON DELETE CASCADE
         );
