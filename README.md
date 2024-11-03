@@ -68,7 +68,7 @@ POKONYA CLONE BRANCH DAN CD KE PBKK-Express
         movie_id INT NOT NULL,
         theater_id INT NOT NULL,
         booking_date DATE NOT NULL,
-        seats INT NOT NULL,
+        seats VARCHAR(20) NOT NULL,
         FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE,
         FOREIGN KEY (theater_id) REFERENCES theaters(id) ON DELETE CASCADE
         );
@@ -122,7 +122,7 @@ const db = mysql.createConnection({
 });
 ```
 
-NOTE : 
+### NOTE : 
 
 1. Misal mau mode edit vue, jalanin langkah atas, edit di `http://localhost:3000/admin/`
 
@@ -133,4 +133,9 @@ tetep jalanin backend nya di localhost:3001
  back end : 3001
 
    gunanya biar bisa barengan editnya
+
+2. add import di `admin-dashboard`
+   ```
+   npm install lucide-vue-next
+   ```
 
