@@ -233,7 +233,7 @@
           <li><a href="/buy-ticket">Buy Tickets</a></li>
           <li><a href="/admin">ADMIN</a></li>
           <li>
-            <a href="#" class="btn btn-hover buy-ticket-btn">
+            <a href="/logout" class="btn btn-hover buy-ticket-btn">
               <span>Log Out</span>
             </a>
           </li>
@@ -303,17 +303,16 @@
             <th style="background: white; color: #FF5673;">Theater</th>
             <th style="background: white; color: #FF5673;">Booking Date</th>
             <th style="background: white; color: #FF5673;">Seats</th>
-          
         </tr>
       </thead>
       <tbody>
         <% bookings.forEach(booking => { %>
           <tr>
-            <td><%= booking.name %></td>
-            <td><%= booking.movie_title %></td>
-            <td><%= booking.theater_name %></td>
-            <td><%= booking.booking_date %></td>
-            <td><%= booking.seats %></td>
+            <td style="color: black; background-color: white;"><%= booking.name %></td>
+            <td style="color: black; background-color: white;"><%= booking.movie_title %></td>
+            <td style="color: black; background-color: white;"><%= booking.theater_name %></td>
+            <td style="color: black; background-color: white;"><%= booking.booking_date %></td>
+            <td style="color: black; background-color: white;"><%= booking.seats %></td>
             
           </tr>
         <% }) %>
@@ -325,74 +324,78 @@
   <!-- FOOTER -->
   <footer class="section">
     <div class="container">
-      <div class="row">
-        <div class="col-4 col-md-6 col-sm-12">
-          <div class="content">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut veniam ex quos hic id nobis beatae earum sapiente! Quod ipsa exercitationem officiis non error illum minima iusto et. Dolores, quibusdam?
-            </p>
-            <div class="social-list">
-              <a href="#" class="social-item">
-                <i class="bx bxl-facebook"></i>
-              </a>
-              <a href="#" class="social-item">
-                <i class="bx bxl-twitter"></i>
-              </a>
-              <a href="#" class="social-item">
-                <i class="bx bxl-instagram"></i>
-              </a>
+        <div class="row">
+            <div class="col-4 col-md-6 col-sm-12">
+                <div class="content">
+                    
+                    <p>
+                        <strong>Powerpuff Cinema</strong> is a vibrant, family-friendly theater that embodies the energy and aims to create a playful and exciting environment where kids and adults can enjoy movies together in dynamic setting.                        </p>
+                    <div class="social-list">
+                        <a href="#" class="social-item">
+                            <i class="bx bxl-facebook"></i>
+                        </a>
+                        <a href="#" class="social-item">
+                            <i class="bx bxl-youtube"></i>
+                        </a>
+                        <a href="#" class="social-item">
+                            <i class="bx bxl-twitter"></i>
+                        </a>
+                        <a href="#" class="social-item">
+                            <i class="bx bxl-instagram"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="col-8 col-md-6 col-sm-12">
+                <div class="row">
+                    <div class="col-3 col-md-6 col-sm-6">
+                        <div class="content">
+                            <p><b>Flix</b></p>
+                            <ul class="footer-menu">
+                                <li><a href="/about-us">About us</a></li>
+                                <li><a href="#">My profile</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-6 col-sm-6">
+                        <div class="content">
+                            <p><b>Browse</b></p>
+                            <ul class="footer-menu">
+                                <li><a href="/now-playing">Now Showing</a></li>
+                                <li><a href="#">Pricing plans</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-6 col-sm-6">
+                        <div class="content">
+                            <p><b>Help</b></p>
+                            <ul class="footer-menu">
+                                <li><a href="/contact">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-6 col-sm-6">
+                        <div class="content">
+                            <p><b>Download app</b></p>
+                            <ul class="footer-menu">
+                                <li>
+                                    <a href="#">
+                                        <img src="./images/google-play.png" alt="">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img src="./images/app-store.png" alt="">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-8 col-md-6 col-sm-12">
-          <div class="row">
-            <div class="col-3 col-md-6 col-sm-6">
-              <div class="content">
-                <p><b>Flix</b></p>
-                <ul class="footer-menu">
-                  <li><a href="#">About us</a></li>
-                  <li><a href="#">My profile</a></li>
-                  <li><a href="#">Pricing plans</a></li>
-                  <li><a href="#">Contacts</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-3 col-md-6 col-sm-6">
-              <div class="content">
-                <p><b>Browse</b></p>
-                <ul class="footer-menu">
-                  <li><a href="#">About us</a></li>
-                  <li><a href="#">My profile</a></li>
-                  <li><a href="#">Pricing plans</a></li>
-                  <li><a href="#">Contacts</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-3 col-md-6 col-sm-6">
-              <div class="content">
-                <p><b>Help</b></p>
-                <ul class="footer-menu">
-                  <li><a href="#">About us</a></li>
-                  <li><a href="#">My profile</a></li>
-                  <li><a href="#">Pricing plans</a></li>
-                  <li><a href="#">Contacts</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-3 col-md-6 col-sm-6">
-              <div class="content">
-                <p><b>Download app</b></p>
-                <ul class="footer-menu">
-                  <li><a href="#"><img src="./images/google-play.png" alt=""></a></li>
-                  <li><a href="#"><img src="./images/app-store.png" alt=""></a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </footer>
+</footer>
   <!-- END FOOTER -->
 
   <!-- COPYRIGHT SECTION -->

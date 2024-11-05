@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Powerpuff Cinema</title>
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- OWL CAROUSEL -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <!-- BOX ICONS -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!-- APP CSS -->
+    <link rel="stylesheet" href="/grid.css">
+    <link rel="stylesheet" href="/app.css">
+</head>
+
+<body>
+    <!-- NAV -->
+    <div class="nav-wrapper">
+        <div class="container">
+            <div class="nav">
+                <a href="#" class="logo">
+                </a>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="/dashboard">Home</a></li>
+                    <li><a href="/now-playing">Now Playing</a></li>
+                    <li><a href="/theaters">Theatres</a></li>
+                    <li><a href="/buy-ticket">Buy Tickets</a></li>
+                    <li><a href="/admin">ADMIN</a></li>
+                    <li>
+                        <a href="/logout" class="btn btn-hover buy-ticket-btn">
+                            <span>Log Out</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- MOBILE MENU TOGGLE -->
+                <div class="hamburger-menu" id="hamburger-menu">
+                    <div class="hamburger"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END NAV -->
+
+    <!-- HERO SECTION -->
+    <div class="hero-section">
+        <div class="hero-slide-item">
+            <div class="hero-slide-item-content">
+                <img src="./images/imax.jpg" alt="Deluxe Snacks" class="movie-item-image">
+                <div class="item-content-wraper">
+                    <div class="item-content-title">
+                        About Us
+                    </div>
+                    <div class="item-content-description">
+                        Welcome to Powerpuff Cinema - Your Premier Movie Experience
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END HERO SECTION -->
+
+    <!-- ABOUT SECTION -->
+    <div class="section">
+        <div class="container">
+            <div class="section-header text-center">Cinema is Our Passion</div>
+            <div class="story-description text-center">
+                We're a modern cinema dedicated to providing unforgettable movie experiences with cutting-edge technology and premium comfort.
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-item text-center">
+                    <div class="feature-icon">
+                        <i class='bx bx-movie-play'></i>
+                    </div>
+                    <div class="feature-title">
+                        PREMIUM QUALITY
+                    </div>
+                    <div class="feature-desc">
+                        State-of-the-art IMAX screens and Dolby sound systems
+                    </div>
+                </div>
+        
+                <div class="feature-item text-center">
+                    <div class="feature-icon">
+                        <i class='bx bx-chair'></i>
+                    </div>
+                    <div class="feature-title">
+                        SUPREME COMFORT
+                    </div>
+                    <div class="feature-desc">
+                        Luxurious reclining seats with ample legroom
+                    </div>
+                </div>
+        
+                <div class="feature-item text-center">
+                    <div class="feature-icon">
+                        <i class='bx bx-dollar'></i>
+                    </div>
+                    <div class="feature-title">
+                        GREAT VALUE
+                    </div>
+                    <div class="feature-desc">
+                        Competitive pricing with premium experience
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <style>
+        .story-description {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            margin-top: 60px;
+            font-size: 1.2em;
+            color: var(--text-color);
+            padding: 0 20px;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin: 40px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+        
+        .feature-item {
+            padding: 20px;
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            color: var(--main-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon i {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 50%;
+        }
+        
+        .feature-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--main-color);
+        }
+        
+        .feature-desc {
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        
+            .story-description {
+                font-size: 1.1em;
+                padding: 0 15px;
+            }
+        }
+        </style>
+    
+        
+    <!-- SPECIAL SECTION -->
+<div class="section">
+    <div class="container">
+        <div class="section-header">Why Choose Us</div>
+        <div class="special-movie-slide">
+            <!-- Special Feature 1 -->
+            <div class="movie-item">
+                <img src="./images/premium-experience.jpg" alt="Premium Movie Experience" class="movie-item-image">
+                <div class="movie-item-content">
+                    <div class="movie-item-title">
+                        Premium Movie Experience
+                    </div>
+                    <div class="movie-infos">
+                        <div class="movie-info">
+                            <i class='bx bxs-check-circle'></i>
+                            <span>Latest IMAX Technology</span>
+                        </div>
+                        <div class="movie-info">
+                            <i class='bx bxs-check-circle'></i>
+                            <span>Dolby Atmos Sound</span>
+                        </div>
+                        <div class="movie-info">
+                            <i class='bx bxs-check-circle'></i>
+                            <span>4K Digital Projection</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Feature 2 -->
+            <div class="movie-item">
+                <img src="./images/comfort-seating.jpg" alt="Ultimate Comfort" class="movie-item-image">
+                <div class="movie-item-content">
+                    <div class="movie-item-title">
+                        Ultimate Comfort
+                    </div>
+                    <div class="movie-infos">
+                        <div class="movie-info">
+                            <i class='bx bxs-check-circle'></i>
+                            <span>Reclining Leather Seats</span>
+                        </div>
+                        <div class="movie-info">
+                            <i class='bx bxs-check-circle'></i>
+                            <span>Extra Legroom</span>
+                        </div>
+                        <div class="movie-info">
+                            <i class='bx bxs-check-circle'></i>
+                            <span>Cup Holders & Tables</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Feature 3 -->
+            <div class="movie-item">
+                <img src="./images/concessions.jpg" alt="Premium Concessions" class="movie-item-image">
+                <div class="movie-item-content">
+                    <div class="movie-item-title">
+                        Premium Concessions
+                    </div>
+                    <div class="movie-infos">
+                        <div class="movie-info">
+                            <i class='bx bxs-check-circle'></i>
+                            <span>Gourmet Snacks</span>
+                        </div>
+                        <div class="movie-info">
+                            <i class='bx bxs-check-circle'></i>
+                            <span>Craft Beverages</span>
+                        </div>
+                        <div class="movie-info">
+                            <i class='bx bxs-check-circle'></i>
+                            <span>In-Seat Service</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Feature 4 -->
+            <div class="movie-item">
+                <img src="./images/convenience.jpg" alt="Total Convenience" class="movie-item-image">
+                <div class="movie-item-content">
+                    <div class="movie-item-title">
+                        Total Convenience
+                    </div>
+                    <div class="movie-infos">
+                        <div class="movie-info">
+                            <i class='bx bxs-check-circle'></i>
+                            <span>Easy Online Booking</span>
+                        </div>
+                        <div class="movie-info">
+                            <i class='bx bxs-check-circle'></i>
+                            <span>Mobile Tickets</span>
+                        </div>
+                        <div class="movie-info">
+                            <i class='bx bxs-check-circle'></i>
+                            <span>Priority Parking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional CTA Section -->
+        <div class="special-cta">
+            <div class="cta-content">
+                <h3>Ready to Experience the Best?</h3>
+                <p>Join us for an unforgettable movie experience</p>
+                <div class="cta-buttons">
+                    <a href="/buy-ticket" class="btn btn-hover">
+                        <i class='bx bxs-ticket'></i>
+                        <span>Book Now</span>
+                    </a>
+                    <a href="/theaters" class="btn btn-hover">
+                        <i class='bx bxs-info-circle'></i>
+                        <span>Learn More</span>
+                    </a>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+<!-- END SPECIAL SECTION -->
+
+<style>
+/* Additional Styles for Why Choose Us Section */
+.special-movie-slide {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+   gap: 20px;
+   margin: 20px 0;
+}
+
+.special-cta {
+   text-align: center;
+   margin: 50px auto; /* Changed to center horizontally */
+   margin-top: 80px;
+   padding: 40px;
+   max-width: 600px;
+   background: rgba(255, 255, 255, 0.05);
+   border-radius: 20px;
+}
+
+.cta-content h3 {
+   font-size: 24px;
+   margin-bottom: 10px;
+   color: var(--main-color);
+}
+
+.cta-content p {
+   margin-bottom: 20px;
+   color: var(--text-color);
+}
+
+.cta-buttons {
+   display: flex;
+   justify-content: center;
+   gap: 20px;
+}
+
+.cta-buttons .btn {
+   padding: 10px 24px;
+}
+
+.cta-buttons .btn i {
+   margin-right: 8px;
+}
+
+.movie-info i {
+   color: var(--main-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+   .special-movie-slide {
+       grid-template-columns: 1fr;
+   }
+
+   .cta-buttons {
+       flex-direction: column;
+       gap: 10px;
+   }
+
+   .special-cta {
+       margin: 30px 15px; /* Adjusted margins for mobile */
+       padding: 30px 20px; /* Adjusted padding for mobile */
+   }
+}
+</style>
+    <!-- END SPECIAL SECTION -->
+
+    <!-- FOOTER SECTION -->
+    <footer class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 col-md-6 col-sm-12">
+                    <div class="content">
+                        
+                        <p>
+                            <strong>Powerpuff Cinema</strong> is a vibrant, family-friendly theater that embodies the energy and aims to create a playful and exciting environment where kids and adults can enjoy movies together in dynamic setting.                        </p>
+                        <div class="social-list">
+                            <a href="#" class="social-item">
+                                <i class="bx bxl-facebook"></i>
+                            </a>
+                            <a href="#" class="social-item">
+                                <i class="bx bxl-youtube"></i>
+                            </a>
+                            <a href="#" class="social-item">
+                                <i class="bx bxl-twitter"></i>
+                            </a>
+                            <a href="#" class="social-item">
+                                <i class="bx bxl-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8 col-md-6 col-sm-12">
+                    <div class="row">
+                        <div class="col-3 col-md-6 col-sm-6">
+                            <div class="content">
+                                <p><b>Flix</b></p>
+                                <ul class="footer-menu">
+                                    <li><a href="/about-us">About us</a></li>
+                                    <li><a href="#">My profile</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-3 col-md-6 col-sm-6">
+                            <div class="content">
+                                <p><b>Browse</b></p>
+                                <ul class="footer-menu">
+                                    <li><a href="/now-playing">Now Showing</a></li>
+                                    <li><a href="#">Pricing plans</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-3 col-md-6 col-sm-6">
+                            <div class="content">
+                                <p><b>Help</b></p>
+                                <ul class="footer-menu">
+                                    <li><a href="/contact">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-3 col-md-6 col-sm-6">
+                            <div class="content">
+                                <p><b>Download app</b></p>
+                                <ul class="footer-menu">
+                                    <li>
+                                        <a href="#">
+                                            <img src="./images/google-play.png" alt="">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="./images/app-store.png" alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- END FOOTER SECTION -->
+
+    <!-- COPYRIGHT SECTION -->
+    <div class="copyright">
+        Copyright 2024 <a href="https://www.youtube.com/channel/UCnNgtK4tGlWcceXVzoyTg8Q" target="_blank">
+            Furstin Nabhyla Yasmin</a>
+    </div>
+    <!-- END COPYRIGHT SECTION -->
+
+    <!-- SCRIPT -->
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- OWL CAROUSEL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- APP SCRIPT -->
+    <script src="/app.js"></script>
+
+</body>
+
+</html>

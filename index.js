@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const path = require("path");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2");
@@ -12,6 +12,10 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+app.get("/logout", (req, res) => {
+  // Jika menggunakan session, tambahkan penghapusan session di sini
+  res.redirect("/login");
+});
 
 // Buat koneksi ke MySQL
 const db = mysql.createConnection({
@@ -91,6 +95,49 @@ app.get("/dashboard", (req, res) => {
   res.render("dashboard", { title: "Dashboard", username });
 });
 
+// Route untuk About Us
+app.get("/about-us", (req, res) => {
+  res.render("about-us", { 
+    title: "About Us - Flix",
+    // Jika ada username dari session/query
+    username: req.query.username || null
+  });
+});
+
+app.get("/contact", (req, res) => {
+  res.render("contact", { 
+    title: "Contact Us - Powerpuff Cinema" 
+  });
+});
+
+// Route untuk My Profile (dengan proteksi login)
+app.get("/my-profile", (req, res) => {
+  const username = req.query.username;
+  if (!username) {
+    return res.redirect("/login");
+  }
+  
+  // Ambil data user dari database
+  const sql = "SELECT * FROM users WHERE username = ?";
+  db.query(sql, [username], (err, results) => {
+    if (err) {
+      console.error("Error fetching user data:", err);
+      return res.status(500).send("Error occurred");
+    }
+    
+    if (results.length === 0) {
+      return res.redirect("/login");
+    }
+
+    const userData = results[0];
+    res.render("my-profile", { 
+      title: "My Profile",
+      username: userData.username,
+      userData: userData
+    });
+  });
+});
+
 app.get("/now-playing", (req, res) => {
   const sql = "SELECT title, genre, image_path FROM movies";
   db.query(sql, (err, movies) => {
@@ -148,9 +195,6 @@ app.get("/buy-ticket", (req, res) => {
     });
   });
 });
-
-
-
 
 app.post("/buy-ticket", (req, res) => {
   const { id, name, movie_id, theater_id, booking_date, seats } = req.body;
@@ -500,10 +544,6 @@ app.delete("/api/payments/:id", (req, res) => {
     res.send("Payment deleted successfully");
   });
 });
-
-
-
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
