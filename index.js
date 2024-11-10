@@ -22,7 +22,8 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',        // Sesuaikan dengan user MySQL Anda, defaultnya adalah 'root' di Laragon
   password: '',        // Jika ada password, tambahkan di sini, defaultnya biasanya kosong di Laragon
-  database: 'film' // Ganti dengan nama database yang Anda gunakan
+  database: 'film', // Ganti dengan nama database yang Anda gunakan
+  port: 3308
 });
 
 // Cek koneksi ke MySQL
@@ -138,6 +139,52 @@ app.get("/my-profile", (req, res) => {
   });
 });
 
+app.post("/payments/pay/:id", (req, res) => {
+  const bookingId = req.params.id;
+  const amount = 50000; 
+
+  const bookingSql = `
+    SELECT seats, booking_date FROM bookings WHERE id = ?
+  `;
+  
+  db.query(bookingSql, [bookingId], (err, results) => {
+    if (err) {
+      console.error("Error fetching booking:", err);
+      return res.status(500).send("Error occurred");
+    }
+    
+    if (results.length === 0) {
+      return res.status(404).send("Booking not found");
+    }
+    
+    const seatsCount = results[0].seats.split(',').length; 
+    const totalAmount = seatsCount * amount; 
+
+    const paymentSql = `
+      INSERT INTO payments (booking_id, amount, payment_date, status)
+      VALUES (?, ?, NOW(), 'Paid')
+    `;
+    
+    db.query(paymentSql, [bookingId, totalAmount], (err) => {
+      if (err) {
+        console.error("Error inserting payment:", err);
+      }
+
+      const updateBookingSql = `
+        UPDATE bookings SET status = 'Paid' WHERE id = ?
+      `;
+      
+      db.query(updateBookingSql, [bookingId], (err) => {
+        if (err) {
+          console.error("Error updating booking status:", err);
+        }
+        res.redirect("/payments"); 
+      });
+    });
+  });
+});
+
+
 app.get("/now-playing", (req, res) => {
   const sql = "SELECT title, genre, image_path FROM movies";
   db.query(sql, (err, movies) => {
@@ -146,6 +193,29 @@ app.get("/now-playing", (req, res) => {
       return res.status(500).send("Error occurred");
     }
     res.render("now-playing", { title: "Now Playing", movies });
+  });
+});
+
+app.get("/payments", (req, res) => {
+  const pricePerSeat = 50000; // Harga per kursi
+
+  const paymentsSql = `
+    SELECT bookings.id, bookings.name, movies.title AS movie_title, theaters.name AS theater_name, 
+           bookings.booking_date, bookings.seats, 
+           (LENGTH(bookings.seats) - LENGTH(REPLACE(bookings.seats, ',', '')) + 1) * ? AS amount, 
+           payments.payment_date, payments.status
+    FROM bookings
+    JOIN movies ON bookings.movie_id = movies.id
+    JOIN theaters ON bookings.theater_id = theaters.id
+    LEFT JOIN payments ON bookings.id = payments.booking_id
+  `;
+
+  db.query(paymentsSql, [pricePerSeat], (err, bookings) => {
+    if (err) {
+      console.error("Error fetching bookings and payments from database:", err);
+      return res.status(500).send("Error occurred");
+    }
+    res.render("payments", { title: "Payments", bookings });
   });
 });
 
@@ -271,9 +341,6 @@ app.get("/buy-ticket/edit/:id", (req, res) => {
   });
 });
 
-
-
-
 app.get("/buy-ticket/delete/:id", (req, res) => {
   const { id } = req.params;
   const sql = "DELETE FROM bookings WHERE id = ?";
@@ -285,9 +352,6 @@ app.get("/buy-ticket/delete/:id", (req, res) => {
     res.redirect("/buy-ticket");
   });
 });
-
-
-
 
 app.get("/api/users", (req, res) => {
   const sql = "SELECT * FROM users";
@@ -373,8 +437,6 @@ app.put("/api/movies/:id", (req, res) => {
     res.send("Movie updated successfully");
   });
 });
-
-
 
 app.delete("/api/movies/:id", (req, res) => {
   const { id } = req.params;

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - Powerpuff Cinema</title>
+  
+  <!-- GOOGLE FONTS: POPPINS -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <!-- OWL CAROUSEL -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+  
+  <!-- BOX ICONS -->
+  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+  
+  <!-- APP CSS -->
+  <link rel="stylesheet" href="/grid.css">
+  <link rel="stylesheet" href="/app.css">
+
+  <style>
+    /* Custom Form Styling */
+
+    .pay-button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .pay-button:hover {
+        background-color: #218838;
+    }
+
+    .form-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(135deg, #ffffff, #eed5d5); /* Light gradient from white to light gray */
+    }
+    
+    .form-container h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+      font-family: 'Poppins', sans-serif;
+    }
+  
+    .form-container .form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+  
+    .form-container .input, 
+    .form-container select {
+      background: rgba(255, 255, 255, 0.9); /* Slightly transparent background for inputs */
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s;
+    }
+  
+    .form-container .input:focus, 
+    .form-container select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+  
+    .form-container .button {
+      padding: 12px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: background-color 0.3s ease;
+    }
+  
+    .form-container .button:hover {
+      background-color: #0056b3;
+    }
+  
+    /* Table Styling */
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.booking-table th {
+  background-color: #FF5673;
+  color: #fff;
+  font-weight: bold;
+  padding: 15px;
+  text-align: left;
+}
+
+.booking-table td {
+  background-color: #ffffff;
+  color: #333;
+  padding: 12px 15px;
+  border-bottom: 1px solid #f2f2f2;
+  text-align: left;
+}
+
+/* Hover effect for table rows */
+.booking-table tbody tr:hover {
+  background-color: #f9f9f9;
+  transition: background-color 0.2s ease;
+}
+
+/* Styling for pay button */
+.pay-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.pay-button:hover {
+  background-color: #218838;
+}
+
+/* Action button styling */
+td .pay-button {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.booking-table td,
+.booking-table th {
+  text-align: left;
+}
+
+/* Zebra striping */
+.booking-table tr:nth-child(even) td {
+  background-color: #f8f8f8;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .booking-table,
+  .booking-table th,
+  .booking-table td {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}
+  </style>
+  
+
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div class="nav-wrapper">
+    <div class="container">
+      <div class="nav">
+        <a href="#" class="logo">
+        </a>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="/dashboard">Home</a></li>
+          <li><a href="/now-playing">Now Playing</a></li>
+          <li><a href="/theaters">Theatres</a></li>
+          <li><a href="/buy-ticket">Buy Tickets</a></li>
+          <li><a href="/payments">Payments</a></li>
+          <li><a href="/admin">ADMIN</a></li>
+          <li>
+            <a href="/logout" class="btn btn-hover buy-ticket-btn">
+              <span>Log Out</span>
+            </a>
+          </li>
+        </ul>
+        <div class="hamburger-menu" id="hamburger-menu">
+          <div class="hamburger"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END NAVBAR -->
+
+  <!-- MAIN CONTENT -->
+  <div class="container" style="margin-top: 50px;">
+    <h1 class="now-playing-header" style="margin-bottom: 40px;">Payments</h1>
+
+    <table class="booking-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Movie</th>
+          <th>Theater</th>
+          <th>Booking Date</th>
+          <th>Seats</th>
+          <th>Amount</th>
+          <th>Action</th>
+          <th>Payment Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% bookings.forEach(booking => { %>
+          <tr>
+            <td><%= booking.name %></td>
+            <td><%= booking.movie_title %></td>
+            <td><%= booking.theater_name %></td>
+            <td><%= booking.booking_date %></td>
+            <td><%= booking.seats %></td>
+            <td>Rp<%= booking.amount.toLocaleString() %></td>
+            <td>
+                <% if (booking.status !== 'Paid') { %>
+                  <form action="/payments/pay/<%= booking.id %>" method="POST" style="display:inline;">
+                    <button type="submit" class="button pay-button">Pay</button>
+                  </form>
+                <% } else { %>
+                  Paid
+                <% } %>
+            </td>
+            <td><%= booking.payment_date || '-' %></td>
+            <td><%= booking.status || 'Pending' %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <!-- END MAIN CONTENT -->
+
+  <!-- FOOTER -->
+  <footer class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-4 col-md-6 col-sm-12">
+                <div class="content">
+                    
+                    <p>
+                        <strong>Powerpuff Cinema</strong> is a vibrant, family-friendly theater that embodies the energy and aims to create a playful and exciting environment where kids and adults can enjoy movies together in dynamic setting.                        </p>
+                    <div class="social-list">
+                        <a href="#" class="social-item">
+                            <i class="bx bxl-facebook"></i>
+                        </a>
+                        <a href="#" class="social-item">
+                            <i class="bx bxl-youtube"></i>
+                        </a>
+                        <a href="#" class="social-item">
+                            <i class="bx bxl-twitter"></i>
+                        </a>
+                        <a href="#" class="social-item">
+                            <i class="bx bxl-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 col-md-6 col-sm-12">
+                <div class="row">
+                    <div class="col-3 col-md-6 col-sm-6">
+                        <div class="content">
+                            <p><b>Flix</b></p>
+                            <ul class="footer-menu">
+                                <li><a href="/about-us">About us</a></li>
+                                <li><a href="#">My profile</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-6 col-sm-6">
+                        <div class="content">
+                            <p><b>Browse</b></p>
+                            <ul class="footer-menu">
+                                <li><a href="/now-playing">Now Showing</a></li>
+                                <li><a href="#">Pricing plans</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-6 col-sm-6">
+                        <div class="content">
+                            <p><b>Help</b></p>
+                            <ul class="footer-menu">
+                                <li><a href="/contact">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-6 col-sm-6">
+                        <div class="content">
+                            <p><b>Download app</b></p>
+                            <ul class="footer-menu">
+                                <li>
+                                    <a href="#">
+                                        <img src="./images/google-play.png" alt="">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img src="./images/app-store.png" alt="">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+  <!-- END FOOTER -->
+
+  <!-- COPYRIGHT SECTION -->
+  <div class="copyright">
+    Copyright 2024 <a href="https://www.youtube.com/channel/UCnNgtK4tGlWcceXVzoyTg8Q" target="_blank">
+      Furstin Nabhyla Yasmin</a>
+  </div>
+  <!-- END COPYRIGHT SECTION -->
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <!-- GOOGLE FONTS: POPPINS -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
+  <!-- OWL CAROUSEL -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <!-- BOX ICONS -->
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <!-- APP CSS -->
+  <link rel="stylesheet" href="/grid.css">
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+
